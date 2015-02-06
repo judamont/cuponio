@@ -214,7 +214,7 @@ if ( location.protocol.substr(0,4)  === 'file' ||
 			.append( "<p>The Ajax-based navigation used throughout the jQuery Mobile docs may need to be viewed on a web server to work in certain browsers. If you see an error message when you click a link, please try a different browser.</p>" );
 
 			$( document ).on( "pagecreate", function( event ) {
-				$( event.target ).append( message );
+				//$( event.target ).append( message );
 			});
 		});
 	});
