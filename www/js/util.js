@@ -16,8 +16,8 @@ function mensajeSoporte() {
     alert('Error no controlado, contactenos para asistirte o intenta de nuevo.');
 }
 
-$('#cuponia').bind('pageinit', function(event) {
-	getCuponesList();
+$('#cuponia').bind('pageinit', function (event) {
+    getCuponesList();
 });
 
 function getCuponesList() {
@@ -25,20 +25,26 @@ function getCuponesList() {
     //  "nombre": "cupon 1",
     //  "tienda": "Arturo Calle"
     //};
-                        $.ajax({
-                            url: servicio,
-                            type: 'GET',
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            success: function (resp) {
-                                var cupon = resp;
-                                        $.each(cupon, function(index, item) {
-                                           
-                                                $('#cupones').append('<li>' +item+'</li>');
-                                       
-                                        });
-            
-                            }
-                        });
+    $.ajax({
+        url: servicio,
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (resp) {
+            for (var n = 0; n < resp.length; n++)
+            {
+                var object = JSON.parse(resp[n]);
+                $('#cupones').append('<li>' + object.nombre + '</li>');
+                // do some stuff....
+            }
+//            $.each(resp, function (index, item) {
+//                var object = resp.getJSONObject(item);
+//                alert(object);
+//                $('#cupones').append('<li>' + item + '</li>');
+//
+//            });
+
+        }
+    });
 }
 
