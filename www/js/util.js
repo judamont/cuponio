@@ -1,4 +1,4 @@
-var servicio = "http://cuponrs-oxes.rhcloud.com/webresources/";
+var servicio = "http://cuponrs-oxes.rhcloud.com/webresources/cupon/get/cuponlist";
 //var servicio = "http://localhost:8081/webresources/";
 
 function message(e) {
@@ -15,3 +15,30 @@ function message(e) {
 function mensajeSoporte() {
     alert('Error no controlado, contactenos para asistirte o intenta de nuevo.');
 }
+
+$('#cuponia').bind('pageinit', function(event) {
+	getCuponesList();
+});
+
+function getCuponesList() {
+    //var cupones = {
+    //  "nombre": "cupon 1",
+    //  "tienda": "Arturo Calle"
+    //};
+                        $.ajax({
+                            url: servicio,
+                            type: 'GET',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function (resp) {
+                                var cupon = resp;
+                                        $.each(cupon, function(index, item) {
+                                           
+                                                $('#cupones').append('<li>' +item+'</li>');
+                                       
+                                        });
+            
+                            }
+                        });
+}
+
