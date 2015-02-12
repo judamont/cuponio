@@ -24,6 +24,7 @@ function getCuponesList() {
                 ultimaImagenPrueba = object.imagenBase64;
                 $('#cupones').append(linea);
             }
+            $.mobile.loading("hide");
         }
     });
 }
