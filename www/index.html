@@ -33,7 +33,8 @@
                 <h2><a href="#" title="jQuery Mobile Demos home"><img src="./img/logo.png" alt="jQuery Mobile"></a></h2>
                 <a href="#" class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
             </div><!-- /header -->
-
+            
+                
             <div role="main" class="ui-content jqm-content">
 	    
                 <div data-role="tabs" id="tabs">
@@ -55,6 +56,7 @@
                             <li>CUPON 1</li>
                             <li>CUPON 2</li>
                             <li>CUPON 3</li>
+                            
                         </ul>
                     </div>			  
                     <div id="categorias" class="ui-body-d ui-content">
@@ -65,8 +67,10 @@
                         </ul>
                     </div>
                 </div>
-
-
+                
+                <div data-role="popup" id="popupBasic" style="padding:20px">
+                    <div id="contenidoCupon"></div>
+                </div>
             </div><!-- /content -->
 
             <div data-role="panel" class="jqm-navmenu-panel" data-position="left" data-display="overlay" data-theme="a">
@@ -93,5 +97,6 @@
 
         </div><!-- /page -->
     <script src="./js/util.js"></script>
+    <script src="./js/cuponio.js"></script>
     </body>
 </html>
