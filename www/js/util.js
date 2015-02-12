@@ -1,3 +1,4 @@
+var servicio = "http://cuponrs-oxes.rhcloud.com/webresources/";
 function message(e) {
     var html = $.parseHTML(e.responseText)
     if (html != null) {
