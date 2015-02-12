@@ -5,7 +5,6 @@ $('#cuponia').bind('pageinit', function (event) {
 });
 
 function getCuponesList() {
-
     $.ajax({
         url: servicio + 'cupon/get/cupones',
         type: 'GET',
