@@ -16,6 +16,7 @@ $(document).on("pagecreate", function (event) {
 });
 
 $(document).ready(function () {
+    $.mobile.loading("show");
     $("#a_hoy").click(function () {
         alert('cargando cupones');
         $.mobile.navigate("#hoy");
