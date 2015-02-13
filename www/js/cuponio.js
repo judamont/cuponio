@@ -6,7 +6,7 @@ $('#cuponia').bind('pageinit', function (event) {
 
 function getCuponesList() {
     $.ajax({
-        url: servicio + 'cupon/get/cupones',
+        url: servicio + 'cupon/get/listaCupones',
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
