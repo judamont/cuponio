@@ -14,7 +14,8 @@ function getCuponesList() {
             for (var n = 0; n < resp.length; n++)
             {
                 var object = JSON.parse(resp[n]);
-                var linea = '<li><a href="#popupBasic" onclick="mostrarCupon(' + object.codigo + ',\'' + object.nombre + '\');" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">' + object.nombre;
+                var linea = '<li>\n\<a href="#popupDialog" onclick="mostrarCupon(' + object.codigo + ',\'' + object.nombre + '\');" data-rel="popup"                                                  class="ui-btn ui-corner-all ui-shadow ui-btn-inline"     data-transition="pop">' + object.nombre;
+
                 linea += ' <br/><img src="data:image/jpg;base64,';
                 linea += object.imagenBase64 + '"';
                 linea += ' alt="0"';
