@@ -68,10 +68,6 @@
                     </div>
                 </div>
                 
-                <div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;text-align:center">
-                    <div id="contenidoCupon" role="main" class="ui-content"></div>
-                <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" >Volver</a>        
-                </div>
             </div><!-- /content -->
 
             <div data-role="panel" class="jqm-navmenu-panel" data-position="left" data-display="overlay" data-theme="a">
@@ -97,6 +93,20 @@
             </div><!-- /panel -->
 
         </div><!-- /page -->
+        
+        <div id="pre-rendered-page" data-role="page">
+            <div data-role="header" class="ui-btn-b">
+                <a href="#" class="ui-btn ui-corner-all ui-icon-carat-l ui-btn-icon-notext" data-rel="back">Back Icon</a>
+                <h1>Cupón</h1>
+            </div>
+            <div role="main" class="ui-content">
+                <div id="contenidoCupon" role="main" class="ui-content"></div>
+                <a href="#" class="ui-btn ui-icon-star ui-btn-icon-left" data-rel="back">Obtener Cup&oacute;n</a>
+                <a href="#" class="ui-btn ui-icon-shop ui-btn-icon-left" data-rel="back">Mas cupones de esta Tienda</a>
+                <a href="#" class="ui-btn ui-icon-carat-l ui-btn-icon-left" data-rel="back">Volver</a>
+            </div>
+        </div><!-- /page -->            
+        
     <script src="./js/util.js"></script>
     <script src="./js/cuponio.js"></script>
     </body>
