@@ -13,7 +13,7 @@
         <script src="./js/index.js"></script>
         <script src="./js/jquery.mobile-1.4.5.min.js"></script>
         <script src="./js/app.js"></script>
-        
+
         <style id="inset-tablist">
             .tablist-left {
                 width: 25%;
@@ -33,10 +33,10 @@
                 <h2><a href="#" title="jQuery Mobile Demos home"><img src="./img/logo.png" alt="jQuery Mobile"></a></h2>
                 <a href="#" class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
             </div><!-- /header -->
-            
-                
+
+
             <div role="main" class="ui-content jqm-content">
-	    
+
                 <div data-role="tabs" id="tabs">
                     <div data-role="footer" data-position="fixed" data-id="foo1">
                         <div data-role="navbar" >
@@ -52,12 +52,26 @@
                     </div>
                     <div id="mis_cupones" class="ui-body-d ui-content">
                         <h1>Mis cupones</h1>
+                        <div
+                            class="fb-like"
+                            data-share="true"
+                            data-width="450"
+                            data-show-faces="true">
+                        </div>
                         <ul data-role="listview" data-inset="true" >
-                            <li>CUPON 1</li>
-                            <li>CUPON 2</li>
-                            <li>CUPON 3</li>
-                            
+                            <li><a href="#" class="button anchor" data-icon="key" data-label="Login Facebook"
+                                   onclick="login()">Login Facebook</a></li>
+
+
+                            <!--                            <li>CUPON 1</li>
+                                                        <li>CUPON 2</li>
+                                                        <li>CUPON 3</li>-->
                         </ul>
+                        <hr>
+                        <p>Name: <span id="userName"></span></p>
+                        <img id="userPic"/>
+                        <hr/>
+
                     </div>			  
                     <div id="categorias" class="ui-body-d ui-content">
                         <ul data-role="listview" data-inset="true">
@@ -67,7 +81,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
             </div><!-- /content -->
 
             <div data-role="panel" class="jqm-navmenu-panel" data-position="left" data-display="overlay" data-theme="a">
@@ -93,21 +107,90 @@
             </div><!-- /panel -->
 
         </div><!-- /page -->
-        
+
         <div id="pre-rendered-page" data-role="page">
             <div data-role="header" class="ui-btn-b">
                 <a href="#" class="ui-btn ui-corner-all ui-icon-carat-l ui-btn-icon-notext" data-rel="back">Back Icon</a>
                 <h1>Cupón</h1>
             </div>
             <div role="main" class="ui-content">
-                <div id="contenidoCupon" role="main" class="ui-content"></div>
+                    <div id="contenidoCupon" role="main" class="ui-content"></div>
                 <a href="#" class="ui-btn ui-icon-star ui-btn-icon-left" data-rel="back">Obtener Cup&oacute;n</a>
                 <a href="#" class="ui-btn ui-icon-shop ui-btn-icon-left" data-rel="back">Mas cupones de esta Tienda</a>
                 <a href="#" class="ui-btn ui-icon-carat-l ui-btn-icon-left" data-rel="back">Volver</a>
             </div>
         </div><!-- /page -->            
-        
-    <script src="./js/util.js"></script>
-    <script src="./js/cuponio.js"></script>
+
+        <script src="./js/util.js"></script>
+        <script src="./js/cuponio.js"></script>
+        <script src="./js/openfb.js"></script>
+
+        <script>
+
+                                       // Defaults to sessionStorage for storing the Facebook token
+                                       openFB.init({appId: '458367924314792',
+                                           xfbml: true,
+                                           version: 'v2.2'});
+
+                                       //  Uncomment the line below to store the Facebook token in localStorage instead of sessionStorage
+                                       //  openFB.init({appId: 'YOUR_FB_APP_ID', tokenStore: window.localStorage});
+
+                                       function login() {
+                                           openFB.login(
+                                                   function (response) {
+                                                       if (response.status === 'connected') {
+                                                           alert('Facebook login succeeded, got access token: ' + response.authResponse.token);
+                                                       } else {
+                                                           alert('Facebook login failed: ' + response.error);
+                                                       }
+                                                   }, {scope: 'email,read_stream,publish_stream'});
+                                           getInfo();
+                                       }
+
+                                       function getInfo() {
+                                           openFB.api({
+                                               path: '/me',
+                                               success: function (data) {
+                                                   console.log(JSON.stringify(data));
+                                                   document.getElementById("userName").innerHTML = data.name;
+                                                   document.getElementById("userPic").src = 'http://graph.facebook.com/' + data.id + '/picture?type=small';
+                                               },
+                                               error: errorHandler});
+                                       }
+
+                                       function share() {
+                                           openFB.api({
+                                               method: 'POST',
+                                               path: '/me/feed',
+                                               params: {
+                                                   message: document.getElementById('Message').value || 'Testing Facebook APIs'
+                                               },
+                                               success: function () {
+                                                   alert('the item was posted on Facebook');
+                                               },
+                                               error: errorHandler});
+                                       }
+
+                                       function revoke() {
+                                           openFB.revokePermissions(
+                                                   function () {
+                                                       alert('Permissions revoked');
+                                                   },
+                                                   errorHandler);
+                                       }
+
+                                       function logout() {
+                                           openFB.logout(
+                                                   function () {
+                                                       alert('Logout successful');
+                                                   },
+                                                   errorHandler);
+                                       }
+
+                                       function errorHandler(error) {
+                                           alert(error.message);
+                                       }
+
+        </script>
     </body>
 </html>
