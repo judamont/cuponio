@@ -108,16 +108,18 @@
 
         </div><!-- /page -->
 
-        <div id="pre-rendered-page" data-role="page">
-            <div data-role="header" class="ui-btn-b">
+        <div id="pre-rendered-page" class="jqm-demos " data-role="page">
+            <div data-role="header" class="jqm-header" style="color:white;">
                 <a href="#" class="ui-btn ui-corner-all ui-icon-carat-l ui-btn-icon-notext" data-rel="back">Back Icon</a>
                 <h1>Cupón</h1>
             </div>
             <div role="main" class="ui-content">
-                    <div id="contenidoCupon" role="main" class="ui-content"></div>
-                <a href="#" class="ui-btn ui-icon-star ui-btn-icon-left" data-rel="back">Obtener Cup&oacute;n</a>
-                <a href="#" class="ui-btn ui-icon-shop ui-btn-icon-left" data-rel="back">Mas cupones de esta Tienda</a>
-                <a href="#" class="ui-btn ui-icon-carat-l ui-btn-icon-left" data-rel="back">Volver</a>
+                <div id="contenidoCupon" role="main" class="ui-content"></div>
+            <div id="autorizacionCupon" role="main" class="ui-content" style="text-align:center">Cupón no válido <br> Solo debes compartir en Facebook para obtener este cup&oacute;n</div>
+                <a href="javascript: obtenerCupon();"onclick="window.open('http://www.facebook.com/sharer.php?u=www.google.com.co','popup', 'toolbar=0, status=0, width=650, height=450');">
+                    <img src="http://www.pescanova.es/web/themes/pescanova/corazon2013/css/images/boton_facebook.png" alt="Compartir en Facebook" style="margin-left: 10px" /></a>
+                <a href="#" class="ui-btn ui-icon-shop ui-btn-icon-left ui-btn-b" data-rel="back">Mas cupones de esta Tienda</a>
+                <a href="#" class="ui-btn ui-icon-carat-l ui-btn-icon-left ui-btn-b" data-rel="back">Volver</a>
             </div>
         </div><!-- /page -->            
 
