@@ -37,3 +37,7 @@ function mostrarCupon(codigo, nombre) {
     contenido += ' style="width:100%;"/>';
     $('#contenidoCupon').html(contenido);
 }
+
+function obtenerCupon(){
+    $('#autorizacionCupon').html('Cup&oacute;n V&aacute;lido');    
+}
