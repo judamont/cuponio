@@ -10,31 +10,21 @@
 var openFB = (function () {
 
     var FB_LOGIN_URL = 'https://www.facebook.com/dialog/oauth',
-        FB_LOGOUT_URL = 'https://www.facebook.com/logout.php',
-
-        // By default we store fbtoken in sessionStorage. This can be overridden in init()
-        tokenStore = window.sessionStorage,
-        
-        fbAppId,
-
-        context = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2)),
-
-        baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
-//        baseURL = 'https://' + location.hostname + (location.port ? ':' + location.port : '') + context,
-
-        oauthRedirectURL = baseURL + '/oauthcallback.html',
-
-        logoutRedirectURL = baseURL + '/logoutcallback.html',
-
-        // Because the OAuth login spans multiple processes, we need to keep the login callback function as a variable
-        // inside the module instead of keeping it local within the login function.
-        loginCallback,
-
-        // Indicates if the app is running inside Cordova
-        runningInCordova,
-
-        // Used in the exit event handler to identify if the login has already been processed elsewhere (in the oauthCallback function)
-        loginProcessed;
+            FB_LOGOUT_URL = 'https://www.facebook.com/logout.php',
+            // By default we store fbtoken in sessionStorage. This can be overridden in init()
+            tokenStore = window.sessionStorage,
+            fbAppId,
+            context = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)),
+            baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
+            oauthRedirectURL = baseURL + '/oauthcallback.html',
+            logoutRedirectURL = baseURL + '/logoutcallback.html',
+            // Because the OAuth login spans multiple processes, we need to keep the login callback function as a variable
+            // inside the module instead of keeping it local within the login function.
+            loginCallback,
+            // Indicates if the app is running inside Cordova
+            runningInCordova = true,
+            // Used in the exit event handler to identify if the login has already been processed elsewhere (in the oauthCallback function)
+            loginProcessed;
 
     console.log(oauthRedirectURL);
     console.log(logoutRedirectURL);
@@ -52,6 +42,8 @@ var openFB = (function () {
      */
     function init(params) {
         if (params.appId) {
+            console.log(oauthRedirectURL);
+            console.log(logoutRedirectURL);
             fbAppId = params.appId;
         } else {
             throw 'appId parameter not set in init()';
@@ -68,14 +60,15 @@ var openFB = (function () {
      */
     function getLoginStatus(callback) {
         var token = tokenStore['fbtoken'],
-            loginStatus = {};
+                loginStatus = {};
         if (token) {
             loginStatus.status = 'connected';
             loginStatus.authResponse = {token: token};
         } else {
             loginStatus.status = 'unknown';
         }
-        if (callback) callback(loginStatus);
+        if (callback)
+            callback(loginStatus);
     }
 
     /**
@@ -90,8 +83,8 @@ var openFB = (function () {
     function login(callback, options) {
 
         var loginWindow,
-            startTime,
-            scope = '';
+                startTime,
+                scope = '';
 
         if (!fbAppId) {
             return callback({status: 'unknown', error: 'Facebook App Id not set.'});
@@ -134,11 +127,11 @@ var openFB = (function () {
         if (runningInCordova) {
             oauthRedirectURL = "https://www.facebook.com/connect/login_success.html";
         }
-
+        console.log(oauthRedirectURL)
         startTime = new Date().getTime();
         loginWindow = window.open(FB_LOGIN_URL + '?client_id=' + fbAppId + '&redirect_uri=' + oauthRedirectURL +
-            '&response_type=token&scope=' + scope, '_blank', 'location=no');
-
+                '&response_type=token&scope=' + scope, '_blank', 'location=no');
+        
         // If the app is running in Cordova, listen to URL changes in the InAppBrowser until we get a URL with an access_token or an error
         if (runningInCordova) {
             loginWindow.addEventListener('loadstart', loginWindow_loadStartHandler);
@@ -158,20 +151,23 @@ var openFB = (function () {
     function oauthCallback(url) {
         // Parse the OAuth data received from Facebook
         var queryString,
-            obj;
+                obj;
 
         loginProcessed = true;
         if (url.indexOf("access_token=") > 0) {
             queryString = url.substr(url.indexOf('#') + 1);
             obj = parseQueryString(queryString);
             tokenStore['fbtoken'] = obj['access_token'];
-            if (loginCallback) loginCallback({status: 'connected', authResponse: {token: obj['access_token']}});
+            if (loginCallback)
+                loginCallback({status: 'connected', authResponse: {token: obj['access_token']}});
         } else if (url.indexOf("error=") > 0) {
             queryString = url.substring(url.indexOf('?') + 1, url.indexOf('#'));
             obj = parseQueryString(queryString);
-            if (loginCallback) loginCallback({status: 'not_authorized', error: obj.error});
+            if (loginCallback)
+                loginCallback({status: 'not_authorized', error: obj.error});
         } else {
-            if (loginCallback) loginCallback({status: 'not_authorized'});
+            if (loginCallback)
+                loginCallback({status: 'not_authorized'});
         }
     }
 
@@ -182,7 +178,7 @@ var openFB = (function () {
      */
     function logout(callback) {
         var logoutWindow,
-            token = tokenStore['fbtoken'];
+                token = tokenStore['fbtoken'];
 
         /* Remove token. Will fail silently if does not exist */
         tokenStore.removeItem('fbtoken');
@@ -190,7 +186,7 @@ var openFB = (function () {
         if (token) {
             logoutWindow = window.open(FB_LOGOUT_URL + '?access_token=' + token + '&next=' + logoutRedirectURL, '_blank', 'location=no');
             if (runningInCordova) {
-                setTimeout(function() {
+                setTimeout(function () {
                     logoutWindow.close();
                 }, 700);
             }
@@ -214,9 +210,9 @@ var openFB = (function () {
     function api(obj) {
 
         var method = obj.method || 'GET',
-            params = obj.params || {},
-            xhr = new XMLHttpRequest(),
-            url;
+                params = obj.params || {},
+                xhr = new XMLHttpRequest(),
+                url;
 
         params['access_token'] = tokenStore['fbtoken'];
 
@@ -225,10 +221,12 @@ var openFB = (function () {
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    if (obj.success) obj.success(JSON.parse(xhr.responseText));
+                    if (obj.success)
+                        obj.success(JSON.parse(xhr.responseText));
                 } else {
                     var error = xhr.responseText ? JSON.parse(xhr.responseText).error : {message: 'An error has occurred'};
-                    if (obj.error) obj.error(error);
+                    if (obj.error)
+                        obj.error(error);
                 }
             }
         };
@@ -255,8 +253,8 @@ var openFB = (function () {
 
     function parseQueryString(queryString) {
         var qs = decodeURIComponent(queryString),
-            obj = {},
-            params = qs.split('&');
+                obj = {},
+                params = qs.split('&');
         params.forEach(function (param) {
             var splitter = param.split('=');
             obj[splitter[0]] = splitter[1];
