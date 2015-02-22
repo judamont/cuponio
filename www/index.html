@@ -51,26 +51,18 @@
                         <ul id="cupones" data-role="listview" data-inset="true"></ul>
                     </div>
                     <div id="mis_cupones" class="ui-body-d ui-content">
-                        <h1>Mis cupones</h1>
-                        <div
-                            class="fb-like"
-                            data-share="true"
-                            data-width="450"
-                            data-show-faces="true">
-                        </div>
-                        <ul data-role="listview" data-inset="true" >
-                            <li><a href="#" class="button anchor" data-icon="key" data-label="Login Facebook"
-                                   onclick="login()">Login Facebook</a></li>
+                        <button class="btn btn-block" onclick="login()">Login with Facebook</button>
+                        <hr/>
 
-
-                            <!--                            <li>CUPON 1</li>
-                                                        <li>CUPON 2</li>
-                                                        <li>CUPON 3</li>-->
-                        </ul>
-                        <hr>
+                        <button class="btn btn-block" onclick="getInfo()">Get My Info</button>
                         <p>Name: <span id="userName"></span></p>
                         <img id="userPic"/>
                         <hr/>
+                        <button class="btn btn-block" onclick="share()">Share</button>
+                        <hr/>
+                        <button class="btn btn-block" onclick="revoke()">Revoke Permissions</button>
+                        
+                        
 
                     </div>			  
                     <div id="categorias" class="ui-body-d ui-content">
@@ -130,7 +122,7 @@
         <script>
 
                                        // Defaults to sessionStorage for storing the Facebook token
-                                       openFB.init({appId: '458367924314792',
+                                       openFB.init({appId: '877324312306447',
                                            xfbml: true,
                                            version: 'v2.2'});
 
