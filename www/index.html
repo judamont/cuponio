@@ -42,7 +42,8 @@
                         <div data-role="navbar" >
                             <ul>
                                 <li><a href="#hoy" data-ajax="false"  class="ui-btn-active">Para Hoy</a></li>
-                                <li><a href="#mis_cupones" data-ajax="false">Mis Cupones</a></li>
+                                <li><a id="a_mis_cupones" href="#mis_cupones" data-ajax="false">Mis Cupones</a></li>
+                                <li><a href="#fb" data-ajax="false">FaceBook</a></li>
                                 <li><a href="#categorias" data-ajax="false">Categor&iacute;as</a></li>
                             </ul>
                         </div>
@@ -50,7 +51,11 @@
                     <div id="hoy" class="ui-body-d ui-content">
                         <ul id="cupones" data-role="listview" data-inset="true"></ul>
                     </div>
-                    <div id="mis_cupones" class="ui-body-d ui-content">
+                    <div id="mis_cupones" class="ui-body-d ui-content" >
+                        <ul id="cupones_usuario" data-role="listview" data-inset="true"></ul>
+                        <button class="btn btn-block" onclick="login()">Login with Facebook</button>
+                    </div>
+                    <div id="fb" class="ui-body-d ui-content">
                         <button class="btn btn-block" onclick="login()">Login with Facebook</button>
                         <hr/>
 
