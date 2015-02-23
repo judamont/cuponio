@@ -22,13 +22,17 @@ $(document).ready(function () {
         $.mobile.navigate("#hoy");
     });
     $("#a_mis_cupones").click(function () {
-        alert('cargando mis cupones');
-        $.mobile.navigate("#mis_cupones");
+        openFB.getLoginStatus(function (response) {
+            if (response.status == 'connected') {
+                alert(response.status);
+                //codigo cupones usuario
+            } else {
+                alert('Ingresa para ver tus cupones')
+            }
+        });
     });
     $("#a_categorias").click(function () {
         alert('cargando categorias');
         $.mobile.navigate("#categorias");
     });
 });
-
-
