@@ -14,6 +14,8 @@ function getCuponesList() {
             for (var n = 0; n < resp.length; n++)
             {
                 var object = JSON.parse(resp[n]);
+                console.log(object.tienda.codigo);
+                console.log(object.tienda.centroComercial.codigo);
                 var linea = '<li>\n\<a href="#pre-rendered-page" onclick="mostrarCupon(' + object.codigo + ',\'' + object.nombre + '\');" class="ui-btn ui-corner-all ui-shadow ui-btn-inline"   data-transition="pop">' + object.nombre;
                 linea += ' <br/><img src="data:image/jpg;base64,';
                 linea += object.imagenBase64 + '"';
@@ -29,8 +31,9 @@ function getCuponesList() {
     });
 }
 
-function mostrarCupon(codigo, nombre) {
-    var contenido = '<p>En este popup va la información del cupon  <b>' + codigo +' - '+nombre  + '</b><p>';
+function mostrarCupon(codCentroComercial,codTienda, codCategoria, codCupon) {
+    
+    var contenido = '<p>En este popup va la información del cupon  <b>' + codCentroComercial +' - '+codCupon  + '</b><p>';
     contenido += ' <br/><img src="data:image/jpg;base64,';
     contenido += ultimaImagenPrueba + '"';
     contenido += ' alt="0"';
