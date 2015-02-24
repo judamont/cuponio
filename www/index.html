@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="./css/themes/default/jquery.mobile-1.4.5.min.css">
         <link rel="stylesheet" href="./css/jqm-demos.css">
         <link rel="stylesheet" href="./css/animate.css">
+        <link rel="stylesheet" href="./css/app.css">
         <script src="./js/jquery.js"></script>
         <script src="./js/index.js"></script>
         <script src="./js/jquery.mobile-1.4.5.min.js"></script>
@@ -53,7 +54,7 @@
                     </div>
                     <div id="mis_cupones" class="ui-body-d ui-content" >
                         <ul id="cupones_usuario" data-role="listview" data-inset="true"></ul>
-                        <button class="btn btn-block" onclick="login()">Login with Facebook</button>
+                        <button class="btn btn-block fb_login" onclick="login()"/>
                     </div>
                     <div id="fb" class="ui-body-d ui-content">
                         <button class="btn btn-block" onclick="login()">Login with Facebook</button>
@@ -112,9 +113,9 @@
             </div>
             <div role="main" class="ui-content">
                     <div id="contenidoCupon" role="main" class="ui-content"></div>
-                <div id="autorizacionCupon" role="main" class="ui-content" style="text-align:center">Cupón no válido <br> Solo debes compartir en Facebook para obtener este cup&oacute;n</div>
+                <div id="autorizacionCupon" role="main" class="ui-content" style="text-align:center">Solo debes compartir en Facebook para obtener este cup&oacute;n</div>
                 <a href="javascript: obtenerCupon();"onclick="window.open('http://www.facebook.com/sharer.php?u=www.google.com.co', 'popup', 'toolbar=0, status=0, width=650, height=450');">
-                    <img src="http://www.pescanova.es/web/themes/pescanova/corazon2013/css/images/boton_facebook.png" alt="Compartir en Facebook" style="margin-left: 10px" /></a>
+                    <img class="btn btn-block fb_compartir" alt="Compartir en Facebook"/></a>
                 <a href="#" class="ui-btn ui-icon-shop ui-btn-icon-left ui-btn-b" data-rel="back">Mas cupones de esta Tienda</a>
                 <a href="#" class="ui-btn ui-icon-carat-l ui-btn-icon-left ui-btn-b" data-rel="back">Volver</a>
             </div>
