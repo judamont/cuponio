@@ -1,4 +1,6 @@
 var servicio = "http://cuponrs-oxes.rhcloud.com/webresources/";
+//var servicio = "http://localhost:9081/webresources/";
+
 function message(e) {
     var html = $.parseHTML(e.responseText)
     if (html != null) {
