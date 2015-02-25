@@ -61,9 +61,10 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
 
     $('#contenidoCupon').html("<br/>&nbsp;&nbsp;<span><b>--- Cargando Datos Cupón ---</b></span>");
 
-    $('#contenidoCupon').html(function () {
+    $('#pre-rendered-page').html(function () {
         $.mobile.loading("show");
     });
+    
     $('#descripcionCupon').html("");
     $.ajax({
         url: servicio + 'cupon/get/cupon',
@@ -72,7 +73,7 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
         contentType: 'application/json',
         data: data,
         success: function (resp) {
-            var contenido = '<p>En este popup va la información del cupon  <b>' + resp.nombre + '</b><p>';
+            var contenido = '<h1><b>' + resp.nombre + '</b></h1>';
             contenido += ' <br/><img src="data:image/jpg;base64,';
             contenido += resp.imagenBase64 + '"';
             contenido += ' alt="' + resp.descripcion + '"';
