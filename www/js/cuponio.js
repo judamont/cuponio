@@ -59,6 +59,12 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
 
     var data = JSON.stringify({cupon: cupon, centroComercial: centroComercial, tienda: tienda, categoria: categoria});
 
+    $('#contenidoCupon').html("<br/>&nbsp;&nbsp;<span><b>--- Cargando Datos Cupón ---</b></span>");
+
+    $('#contenidoCupon').html(function () {
+        $.mobile.loading("show");
+    });
+    $('#descripcionCupon').html("");
     $.ajax({
         url: servicio + 'cupon/get/cupon',
         type: 'POST',
@@ -73,7 +79,7 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
             contenido += ' style="width:100%;"/>';
             $('#contenidoCupon').html(contenido);
             $('#descripcionCupon').html(resp.descripcion);
-            
+            $.mobile.loading("hide");
         }
     });
 }
