@@ -6,11 +6,11 @@ var cupon = {
 };
 
 var tienda = {
-    codigo: 0, nombre: null, email: null, clave: null
+    codigo: null, nombre: null, email: null, clave: null
 };
 
 var centroComercial = {
-    codigo: 0, nombre: null, direccion: null
+    codigo: null, nombre: null, direccion: null
 };
 
 var categoria = {
@@ -33,7 +33,9 @@ function getCuponesList() {
                 var object = JSON.parse(resp[n]);
                 console.log(object.tienda.codigo);
                 console.log(object.tienda.centroComercial.codigo);
-                var linea = '<li>\n\<a href="#pre-rendered-page" onclick="mostrarCupon(' + object.codigo + ',\'' + object.nombre + '\');" class="ui-btn ui-corner-all ui-shadow ui-btn-inline"   data-transition="pop">' + object.nombre;
+                var linea = '<li>\n\<a href="#pre-rendered-page"';
+                linea += 'onclick="mostrarCupon(\'' + object.tienda.centroComercial.codigo + '\',\'' + object.tienda.codigo + '\',' + object.categoria.codigo + ',' + object.codigo + ');"';
+                linea += 'class="ui-btn ui-corner-all ui-shadow ui-btn-inline"   data-transition="pop">' + object.nombre;
                 linea += ' <br/><img src="data:image/jpg;base64,';
                 linea += object.imagenBase64 + '"';
                 linea += ' alt="0"';
@@ -59,7 +61,7 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
 
     $.ajax({
         url: servicio + 'cupon/get/cupon',
-        type: 'GET',
+        type: 'POST',
         dataType: 'json',
         contentType: 'application/json',
         data: data,
