@@ -72,6 +72,8 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
             contenido += ' alt="' + resp.descripcion + '"';
             contenido += ' style="width:100%;"/>';
             $('#contenidoCupon').html(contenido);
+            $('#descripcionCupon').html(resp.descripcion);
+            
         }
     });
 }
