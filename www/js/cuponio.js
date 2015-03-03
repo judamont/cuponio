@@ -17,6 +17,10 @@ var categoria = {
     codigo: 0, nombre: null
 };
 
+var usuario = {
+    nombre: null, apellido: null, correo: null, edad: 0, fechaNacimiento: null, codigo: null, clave: null, claveConfirmacion: null
+}
+
 $('#cuponia').bind('pageinit', function (event) {
     getCuponesList();
 });
@@ -64,7 +68,7 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
     $('#pre-rendered-page').html(function () {
         $.mobile.loading("show");
     });
-    
+
     $('#descripcionCupon').html("");
     $.ajax({
         url: servicio + 'cupon/get/cupon',
@@ -87,4 +91,29 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
 
 function obtenerCupon() {
     $('#autorizacionCupon').html('Cup&oacute;n V&aacute;lido');
+}
+
+function registrarUsuario(response) {
+    usuario.nombre = response.first_name;
+    usuario.apellido = response.last_name;
+    usuario.correo = response.email;
+
+    $.ajax({
+        url: servicio + 'generic/post/usuario',
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(usuario),
+        success: function (resp) {
+            //función cargar cupones usuario.
+        },
+        error: function (e) {
+            var mensaje = message(e);
+            if (mensaje == null) {
+                mensajeSoporte();
+            } else {
+                alert(mensaje);
+            }
+        }
+    });
 }
