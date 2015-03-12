@@ -157,6 +157,7 @@ function asociarCuponUsuario(usuarioFb) {
 }
 
 function cargarCuponesUsuario(resp) {
+    $('#cupones_usuario').html("");
     for (var n = 0; n < resp.length; n++)
     {
         var object = JSON.parse(resp[n]);
