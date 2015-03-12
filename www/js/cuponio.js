@@ -77,6 +77,7 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
         contentType: 'application/json',
         data: data,
         success: function (resp) {
+            cupon.codigo = resp.codigo;
             var contenido = '<h1><b>' + resp.nombre + '</b></h1>';
             contenido += ' <br/><img src="data:image/jpg;base64,';
             contenido += resp.imagenBase64 + '"';
@@ -90,7 +91,17 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
 }
 
 function obtenerCupon() {
-    $('#autorizacionCupon').html('Cup&oacute;n V&aacute;lido');
+    openFB.api({
+        path: '/me',
+        success: function (data) {
+            console.log(JSON.stringify(data));
+            asociarCuponUsuario(data);
+            document.getElementById("userName").innerHTML = data.name;
+            document.getElementById("userPic").src = 'http://graph.facebook.com/' + data.id + '/picture?type=small';
+
+        },
+        error: errorHandler});
+//    $('#autorizacionCupon').html('Cup&oacute;n V&aacute;lido');
 }
 
 function registrarUsuario(response) {
@@ -106,6 +117,78 @@ function registrarUsuario(response) {
         data: JSON.stringify(usuario),
         success: function (resp) {
             //función cargar cupones usuario.
+            cargarCuponesUsuario(resp);
+        },
+        error: function (e) {
+            var mensaje = message(e);
+            if (mensaje == null) {
+                mensajeSoporte();
+            } else {
+                alert(mensaje);
+            }
+        }
+    });
+}
+
+function asociarCuponUsuario(usuarioFb) {
+    usuario.nombre = usuarioFb.first_name;
+    usuario.apellido = usuarioFb.last_name;
+    usuario.correo = usuarioFb.email;
+
+    var data = JSON.stringify({cupon: cupon, centroComercial: centroComercial, tienda: tienda, categoria: categoria, usuario: usuario});
+    $.ajax({
+        url: servicio + 'cupon/post/cuponUsuario',
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: data,
+        success: function (resp) {
+            alert('obtuviste el cupon :)');
+        },
+        error: function (e) {
+            var mensaje = message(e);
+            if (mensaje == null) {
+                mensajeSoporte();
+            } else {
+                alert(mensaje);
+            }
+        }
+    });
+}
+
+function cargarCuponesUsuario(resp) {
+    for (var n = 0; n < resp.length; n++)
+    {
+        var object = JSON.parse(resp[n]);
+        console.log(object.tienda.codigo);
+        console.log(object.tienda.centroComercial.codigo);
+        var linea = '<li>\n\<a href="#pre-rendered-page"';
+        linea += 'onclick="mostrarCupon(\'' + object.tienda.centroComercial.codigo + '\',\'' + object.tienda.codigo + '\',' + object.categoria.codigo + ',' + object.codigo + ');"';
+        linea += 'class="ui-btn ui-corner-all ui-shadow ui-btn-inline"   data-transition="pop">' + object.nombre;
+        linea += ' <br/><img src="data:image/jpg;base64,';
+        linea += object.imagenBase64 + '"';
+        linea += ' alt="0"';
+        linea += ' style="width:100%;"/>';
+        linea += '</a></li>';
+
+        ultimaImagenPrueba = object.imagenBase64;
+        $('#cupones_usuario').append(linea);
+    }
+}
+
+function cargarListaCuponesUsuario(usuarioFb) {
+    usuario.nombre = usuarioFb.first_name;
+    usuario.apellido = usuarioFb.last_name;
+    usuario.correo = usuarioFb.email;
+
+    $.ajax({
+        url: servicio + 'cupon/get/listaCuponesUsuario',
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(usuario),
+        success: function (resp) {
+            cargarCuponesUsuario(resp);
         },
         error: function (e) {
             var mensaje = message(e);
