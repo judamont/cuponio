@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-console.log("cargo");
+document.write("<script type='text/javascript' src='cuponio.js'></script>");
+
 $("#hoy").on("load", function (event) {
     console.log("navigated!");
 });
@@ -24,8 +25,13 @@ $(document).ready(function () {
     $("#a_mis_cupones").click(function () {
         openFB.getLoginStatus(function (response) {
             if (response.status == 'connected') {
-                alert(response.status);
-                //codigo cupones usuario
+                openFB.api({
+                    path: '/me',
+                    success: function (data) {
+                        console.log(JSON.stringify(data));
+                        cargarListaCuponesUsuario(data);
+                    },
+                    error: errorHandler});
             } else {
                 alert('Ingresa para ver tus cupones')
             }
