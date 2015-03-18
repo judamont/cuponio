@@ -6,14 +6,14 @@
 document.write("<script type='text/javascript' src='cuponio.js'></script>");
 
 $("#hoy").on("load", function (event) {
-    console.log("navigated!");
+//    console.log("navigated!");
 });
 
 $(document).on("pagebeforecreate", function (event) {
-    console.log("antes de crear");
+//    console.log("antes de crear");
 });
 $(document).on("pagecreate", function (event) {
-    console.log("pagina creada");
+//    console.log("pagina creada");
 });
 
 $(document).ready(function () {
