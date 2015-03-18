@@ -30,6 +30,7 @@
     </head>
     <body>
         <div id="cuponia" data-role="page" class="jqm-demos" data-quicklinks="true">
+            <div id="status"></div>
             <div data-role="header" class="jqm-header" data-position="fixed" >
                 <h2><a href="#" title="jQuery Mobile Demos home"><img src="./img/logo.png" alt="jQuery Mobile"></a></h2>
                 <a href="#" class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
@@ -130,71 +131,71 @@
 
         <script>
 
-                    // Defaults to sessionStorage for storing the Facebook token
-                    openFB.init({appId: '877324312306447',
-                        xfbml: true,
-                        version: 'v2.2'});
+            // Defaults to sessionStorage for storing the Facebook token
+            openFB.init({appId: '877324312306447',
+                xfbml: true,
+                version: 'v2.2'});
 
-                    //  Uncomment the line below to store the Facebook token in localStorage instead of sessionStorage
-                    //  openFB.init({appId: 'YOUR_FB_APP_ID', tokenStore: window.localStorage});
+            //  Uncomment the line below to store the Facebook token in localStorage instead of sessionStorage
+            //  openFB.init({appId: 'YOUR_FB_APP_ID', tokenStore: window.localStorage});
 
-                    function login() {
-                        openFB.login(
-                                function (response) {
-                                    if (response.status === 'connected') {
-                                        console.log('Facebook login succeeded, got access token: ' + response.authResponse.token);
-                                        getInfo();
-                                    } else {
-                                        alert('Facebook login failed: ' + response.error);
-                                    }
-                                }, {scope: 'email,read_stream,publish_stream'});
-                    }
+            function login() {
+                openFB.login(
+                        function (response) {
+                            if (response.status === 'connected') {
+                                console.log('Facebook login succeeded, got access token: ' + response.authResponse.token);
+                                getInfo();
+                            } else {
+                                alert('Facebook login failed: ' + response.error);
+                            }
+                        }, {scope: 'email,read_stream,publish_stream'});
+            }
 
-                    function getInfo() {
-                        openFB.api({
-                            path: '/me',
-                            success: function (data) {
-                                console.log(JSON.stringify(data));
-                                registrarUsuario(data);
-                                document.getElementById("userName").innerHTML = data.name;
-                                document.getElementById("userPic").src = 'http://graph.facebook.com/' + data.id + '/picture?type=small';
-                                
-                            },
-                            error: errorHandler});
-                    }
+            function getInfo() {
+                openFB.api({
+                    path: '/me',
+                    success: function (data) {
+                        console.log(JSON.stringify(data));
+                        registrarUsuario(data);
+                        document.getElementById("userName").innerHTML = data.name;
+                        document.getElementById("userPic").src = 'http://graph.facebook.com/' + data.id + '/picture?type=small';
 
-                    function share() {
-                        openFB.api({
-                            method: 'POST',
-                            path: '/me/feed',
-                            params: {
-                                message: document.getElementById('Message').value || 'Testing Facebook APIs'
-                            },
-                            success: function () {
-                                alert('the item was posted on Facebook');
-                            },
-                            error: errorHandler});
-                    }
+                    },
+                    error: errorHandler});
+            }
 
-                    function revoke() {
-                        openFB.revokePermissions(
-                                function () {
-                                    alert('Permissions revoked');
-                                },
-                                errorHandler);
-                    }
+            function share() {
+                openFB.api({
+                    method: 'POST',
+                    path: '/me/feed',
+                    params: {
+                        message: document.getElementById('Message').value || 'Testing Facebook APIs'
+                    },
+                    success: function () {
+                        alert('the item was posted on Facebook');
+                    },
+                    error: errorHandler});
+            }
 
-                    function logout() {
-                        openFB.logout(
-                                function () {
-                                    alert('Logout successful');
-                                },
-                                errorHandler);
-                    }
+            function revoke() {
+                openFB.revokePermissions(
+                        function () {
+                            alert('Permissions revoked');
+                        },
+                        errorHandler);
+            }
 
-                    function errorHandler(error) {
-                        alert(error.message);
-                    }
+            function logout() {
+                openFB.logout(
+                        function () {
+                            alert('Logout successful');
+                        },
+                        errorHandler);
+            }
+
+            function errorHandler(error) {
+                alert(error.message);
+            }
 
         </script>
     </body>
