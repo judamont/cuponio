@@ -35,8 +35,8 @@ function getCuponesList() {
             for (var n = 0; n < resp.length; n++)
             {
                 var object = JSON.parse(resp[n]);
-                console.log(object.tienda.codigo);
-                console.log(object.tienda.centroComercial.codigo);
+//                console.log(object.tienda.codigo);
+//                console.log(object.tienda.centroComercial.codigo);
                 var linea = '<li>\n\<a href="#pre-rendered-page"';
                 linea += 'onclick="mostrarCupon(\'' + object.tienda.centroComercial.codigo + '\',\'' + object.tienda.codigo + '\',' + object.categoria.codigo + ',' + object.codigo + ');"';
                 linea += 'class="ui-btn ui-corner-all ui-shadow ui-btn-inline"   data-transition="pop">' + object.nombre;
