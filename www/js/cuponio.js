@@ -26,7 +26,7 @@ $('#cuponia').bind('pageinit', function (event) {
 });
 
 function getCuponesList() {
-    $('#status').html("<center><img src='./img/spinner.gif'/></center>");
+    $('#status').html(status());
     $.ajax({
         url: servicio + 'cupon/get/listaCupones',
         type: 'GET',
@@ -62,9 +62,11 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
     tienda.codigo = codTienda;
     cupon.codigo = codCupon;
     categoria.codigo = codCategoria;
-
+    
+    $('#statusCupon').html(status());
+    
     var data = JSON.stringify({cupon: cupon, centroComercial: centroComercial, tienda: tienda, categoria: categoria});
-    $('#status').html("<center><img src='./img/spinner.gif'/></center>");
+    
     $('#contenidoCupon').html("<br/>&nbsp;&nbsp;<span><b>--- Cargando Datos Cupón ---</b></span>");
 
     $('#pre-rendered-page').html(function () {
@@ -87,7 +89,7 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
             contenido += ' style="width:100%;"/>';
             $('#contenidoCupon').html(contenido);
             $('#descripcionCupon').html(resp.descripcion);
-            $.mobile.loading("hide");
+            $('#statusCupon').html("");
         }
     });
 }
