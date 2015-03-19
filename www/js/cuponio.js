@@ -122,6 +122,7 @@ function registrarUsuario(response) {
         success: function (resp) {
             //función cargar cupones usuario.
             cargarCuponesUsuario(resp);
+            $('#status').html("");
         },
         error: function (e) {
             var mensaje = message(e);
