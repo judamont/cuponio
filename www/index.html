@@ -108,6 +108,7 @@
         </div><!-- /page -->
 
         <div id="pre-rendered-page" class="jqm-demos " data-role="page">
+            <div id="statusCupon"></div>
             <div data-role="header" class="jqm-header" style="color:white;">
                 <a href="#" class="ui-btn ui-corner-all ui-icon-carat-l ui-btn-icon-notext" data-rel="back">Back Icon</a>
                 <h1>Cupón</h1>
@@ -143,8 +144,10 @@
                 openFB.login(
                         function (response) {
                             if (response.status === 'connected') {
+                                $('#status').html(status());
                                 console.log('Facebook login succeeded, got access token: ' + response.authResponse.token);
                                 getInfo();
+                                $('#status').html("");
                             } else {
                                 alert('Facebook login failed: ' + response.error);
                             }
