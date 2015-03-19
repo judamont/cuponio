@@ -15,3 +15,7 @@ function message(e) {
 function mensajeSoporte() {
     alert('Error no controlado, contactenos para asistirte o intenta de nuevo.');
 }
+
+function status() {
+    return "<center><img src='./img/spinner.gif'/></center>";
+}
