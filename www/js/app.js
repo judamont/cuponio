@@ -19,8 +19,9 @@ $(document).on("pagecreate", function (event) {
 $(document).ready(function () {
     $.mobile.loading("show");
     $("#a_hoy").click(function () {
-        alert('cargando cupones');
-        $.mobile.navigate("#hoy");
+        $('#cupones').html("");
+        $('#status').html(status());
+        getCuponesList();
     });
     $("#a_mis_cupones").click(function () {
         openFB.getLoginStatus(function (response) {
@@ -32,7 +33,6 @@ $(document).ready(function () {
                     success: function (data) {
                         console.log(JSON.stringify(data));
                         cargarListaCuponesUsuario(data);
-                        $('#status').html("");
                     },
                     error: errorHandler});
             } else {
