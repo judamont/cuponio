@@ -26,7 +26,7 @@ $('#cuponia').bind('pageinit', function (event) {
 });
 
 function getCuponesList() {
-    $('#status').html(status());
+    
     $.ajax({
         url: servicio + 'cupon/get/listaCupones',
         type: 'GET',
@@ -195,6 +195,7 @@ function cargarListaCuponesUsuario(usuarioFb) {
         data: JSON.stringify(usuario),
         success: function (resp) {
             cargarCuponesUsuario(resp);
+            $('#status').html("");
         },
         error: function (e) {
             var mensaje = message(e);
