@@ -25,11 +25,14 @@ $(document).ready(function () {
     $("#a_mis_cupones").click(function () {
         openFB.getLoginStatus(function (response) {
             if (response.status == 'connected') {
+                $('#status').html(status());
+                $('#cupones_usuario').html("");
                 openFB.api({
                     path: '/me',
                     success: function (data) {
                         console.log(JSON.stringify(data));
                         cargarListaCuponesUsuario(data);
+                        $('#status').html("");
                     },
                     error: errorHandler});
             } else {
