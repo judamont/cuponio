@@ -19,7 +19,7 @@ var categoria = {
 
 var usuario = {
     nombre: null, apellido: null, correo: null, edad: 0, fechaNacimiento: null, codigo: null, clave: null, claveConfirmacion: null
-}
+};
 
 $('#cuponia').bind('pageinit', function (event) {
     getCuponesList();
