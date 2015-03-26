@@ -45,7 +45,7 @@
                             <ul>
                                 <li><a id="a_hoy" href="#hoy" data-ajax="false"  class="ui-btn-active">Para Hoy</a></li>
                                 <li><a id="a_mis_cupones" href="#mis_cupones" data-ajax="false">Mis Cupones</a></li>
-                                <li><a href="#fb" data-ajax="false">FaceBook</a></li>
+                                <!--<li><a href="#fb" data-ajax="false">FaceBook</a></li> -->
                                 <li><a href="#categorias" data-ajax="false">Categor&iacute;as</a></li>
                             </ul>
                         </div>
@@ -57,7 +57,7 @@
                         <ul id="cupones_usuario" data-role="listview" data-inset="true"></ul>
                         <button class="btn btn-block fb_login" onclick="login()"/>
                     </div>
-                    <div id="fb" class="ui-body-d ui-content">
+                    <!--<div id="fb" class="ui-body-d ui-content">
                         <button class="btn btn-block" onclick="login()">Login with Facebook</button>
                         <hr/>
 
@@ -71,7 +71,7 @@
 
 
 
-                    </div>			  
+                    </div>-->			  
                     <div id="categorias" class="ui-body-d ui-content">
                         <ul data-role="listview" data-inset="true">
                             <li><a href="#">Ropa</a></li>
@@ -107,19 +107,19 @@
 
         </div><!-- /page -->
 
-        <div id="pre-rendered-page" class="jqm-demos " data-role="page">
-            <div id="statusCupon"></div>
-            <div data-role="header" class="jqm-header" style="color:white;">
+        <div id="pre-rendered-page" class="jqm-demos " data-role="page" data-theme="a">
+            
+            <div data-role="header" class="jqm-header" style="color:white;" data-position="fixed">
                 <a href="#" class="ui-btn ui-corner-all ui-icon-carat-l ui-btn-icon-notext" data-rel="back">Back Icon</a>
-                <h1>Cupón</h1>
+                <h1 id="nombreCupon"></h1>
             </div>
             <div role="main" class="ui-content">
+                <div id="statusCupon"></div>
                 <div id="contenidoCupon" role="main" class="ui-content"></div>
                 <div id="descripcionCupon" role="main" class="ui-content" style="text-align:left; font-weight: bolder"></div>
                 <br/>
                 <div id="autorizacionCupon" role="main" class="ui-content" style="text-align:center">Solo debes compartir en Facebook para obtener este cup&oacute;n</div>
-                <a href="javascript: obtenerCupon();" onclick="window.open('http://www.facebook.com/sharer.php?u=www.google.com.co', 'popup', 'toolbar=0, status=0, width=650, height=450');">
-                    <img class="btn btn-block fb_compartir" alt="Compartir en Facebook"/></a>
+                <a href="javascript: obtenerCupon();" class="ui-btn ui-icon-action ui-btn-icon-left ui-btn-b">Compartir</a>
                 <a href="#" class="ui-btn ui-icon-shop ui-btn-icon-left ui-btn-b" data-rel="back">Mas cupones de esta Tienda</a>
                 <a href="#" class="ui-btn ui-icon-carat-l ui-btn-icon-left ui-btn-b" data-rel="back">Volver</a>
             </div>

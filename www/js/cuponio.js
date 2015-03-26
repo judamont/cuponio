@@ -82,8 +82,8 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
         data: data,
         success: function (resp) {
             cupon.codigo = resp.codigo;
-            var contenido = '<h1><b>' + resp.nombre + '</b></h1>';
-            contenido += ' <br/><img src="data:image/jpg;base64,';
+            $('#nombreCupon').html('' + resp.nombre + '');
+            var contenido = ' <img src="data:image/jpg;base64,';
             contenido += resp.imagenBase64 + '"';
             contenido += ' alt="' + resp.descripcion + '"';
             contenido += ' style="width:100%;"/>';
