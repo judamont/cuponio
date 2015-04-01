@@ -32,9 +32,10 @@
         <div id="cuponia" data-role="page" class="jqm-demos" data-quicklinks="true">
             <div id="status"></div>
             <div data-role="header" class="jqm-header" data-position="fixed" >
-                <h2><a href="#" title="jQuery Mobile Demos home"><img src="./img/logo.png" alt="jQuery Mobile"></a></h2>
+                <h2><a><img src="./img/logo.png" alt="jQuery Mobile"></a></h2>
                 <a href="#" class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
-            </div><!-- /header -->
+                <a href="#" class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all  ui-icon-search ui-nodisc-icon ui-alt-icon ui-btn-right">Filtros</a>
+            </div>
 
 
             <div role="main" class="ui-content jqm-content">
@@ -85,8 +86,8 @@
 
             <div data-role="panel" class="jqm-navmenu-panel" data-position="left" data-display="overlay" data-theme="a">
                 <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
-                    <li data-filtertext="demos homepage" data-icon="home"><a href=".././">Home</a></li>
-                    <li data-filtertext="introduction overview getting started"><a href="../intro/" data-ajax="false">Introduction</a></li>
+                    <li data-filtertext="Home" data-icon="home"><a href=".././">Home</a></li>
+<!--                    <li data-filtertext="introduction overview getting started"><a href="../intro/" data-ajax="false">Introduction</a></li>
                     <li data-filtertext="form button widget input button submit reset"><a href="../button/" data-ajax="false">Button widget</a></li>
                     <li data-role="collapsible" data-enhanced="true" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right" data-inset="false" class="ui-collapsible ui-collapsible-themed-content ui-collapsible-collapsed">
                         <h3 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
@@ -100,20 +101,47 @@
                                 <li data-filtertext="form checkboxradio widget radio input radio buttons controlgroups"><a href="../checkboxradio-radio/" data-ajax="false">Radio buttons</a></li>
                             </ul>
                         </div>
+                    </li>-->
+                    <li data-role="collapsible" data-enhanced="true" data-collapsed-icon="carat-d" 
+                        data-expanded-icon="carat-u" data-iconpos="right" data-inset="false" class="ui-collapsible ui-collapsible-themed-content ui-collapsible-collapsed">
+                        <h3 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+                            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right ui-btn-inherit ui-icon-search">
+                                Filtros<span class="ui-collapsible-heading-status"> click to expand filtros</span>
+                            </a>
+                        </h3>
+                        <div class="ui-collapsible-content ui-body-inherit ui-collapsible-content-collapsed" aria-hidden="true">
+                            <label>
+                                <input type="checkbox" name="checkbox-0">C1
+                            </label>
+                            <label>
+                                <input type="checkbox" name="checkbox-1">C2
+                            </label>
+                            <label>
+                                <input type="checkbox" name="checkbox-2">C3
+                            </label>
+
+                        </div>
                     </li>
 
                 </ul>
-            </div><!-- /panel -->
+            </div>
+            <!--            <div data-role="panel" id="right-panel" class="jqm-navmenu-panel" data-position="right" data-display="overlay" data-theme="b">
+                            <ul class="jqm-list ui-alt-icon ui-nodisc-icon">
+                                <li data-filtertext="C1" data-icon="home"><a >Home</a></li>
+                            </ul>
+                        </div>-->
+
+
 
         </div><!-- /page -->
 
         <div id="pre-rendered-page" class="jqm-demos " data-role="page" data-theme="a">
-            
             <div data-role="header" class="jqm-header" style="color:white;" data-position="fixed">
                 <a href="#" class="ui-btn ui-corner-all ui-icon-carat-l ui-btn-icon-notext" data-rel="back">Back Icon</a>
-                <h1 id="nombreCupon"></h1>
+                <h1 id="nombreTienda"></h1>
             </div>
-            <div role="main" class="ui-content">
+            <div role="main" class="ui-content">                
+                <h1 id="nombreCupon"></h1>
                 <div id="statusCupon"></div>
                 <div id="contenidoCupon" role="main" class="ui-content"></div>
                 <div id="descripcionCupon" role="main" class="ui-content" style="text-align:left; font-weight: bolder"></div>
@@ -132,72 +160,72 @@
 
         <script>
 
-            // Defaults to sessionStorage for storing the Facebook token
-            openFB.init({appId: '877324312306447',
-                xfbml: true,
-                version: 'v2.2'});
+                            // Defaults to sessionStorage for storing the Facebook token
+                            openFB.init({appId: '877324312306447',
+                                xfbml: true,
+                                version: 'v2.2'});
 
-            //  Uncomment the line below to store the Facebook token in localStorage instead of sessionStorage
-            //  openFB.init({appId: 'YOUR_FB_APP_ID', tokenStore: window.localStorage});
+                            //  Uncomment the line below to store the Facebook token in localStorage instead of sessionStorage
+                            //  openFB.init({appId: 'YOUR_FB_APP_ID', tokenStore: window.localStorage});
 
-            function login() {
-                openFB.login(
-                        function (response) {
-                            if (response.status === 'connected') {
-                                $('#status').html(status());
-                                console.log('Facebook login succeeded, got access token: ' + response.authResponse.token);
-                                getInfo();
-                                
-                            } else {
-                                alert('Facebook login failed: ' + response.error);
+                            function login() {
+                                openFB.login(
+                                        function (response) {
+                                            if (response.status === 'connected') {
+                                                $('#status').html(status());
+                                                console.log('Facebook login succeeded, got access token: ' + response.authResponse.token);
+                                                getInfo();
+
+                                            } else {
+                                                alert('Facebook login failed: ' + response.error);
+                                            }
+                                        }, {scope: 'email,read_stream,publish_stream'});
                             }
-                        }, {scope: 'email,read_stream,publish_stream'});
-            }
 
-            function getInfo() {
-                openFB.api({
-                    path: '/me',
-                    success: function (data) {
-                        console.log(JSON.stringify(data));
-                        registrarUsuario(data);
-                        document.getElementById("userName").innerHTML = data.name;
-                        document.getElementById("userPic").src = 'http://graph.facebook.com/' + data.id + '/picture?type=small';
-                    },
-                    error: errorHandler});
-            }
+                            function getInfo() {
+                                openFB.api({
+                                    path: '/me',
+                                    success: function (data) {
+                                        console.log(JSON.stringify(data));
+                                        registrarUsuario(data);
+                                        document.getElementById("userName").innerHTML = data.name;
+                                        document.getElementById("userPic").src = 'http://graph.facebook.com/' + data.id + '/picture?type=small';
+                                    },
+                                    error: errorHandler});
+                            }
 
-            function share() {
-                openFB.api({
-                    method: 'POST',
-                    path: '/me/feed',
-                    params: {
-                        message: document.getElementById('Message').value || 'Testing Facebook APIs'
-                    },
-                    success: function () {
-                        alert('the item was posted on Facebook');
-                    },
-                    error: errorHandler});
-            }
+                            function share() {
+                                openFB.api({
+                                    method: 'POST',
+                                    path: '/me/feed',
+                                    params: {
+                                        message: document.getElementById('Message').value || 'Testing Facebook APIs'
+                                    },
+                                    success: function () {
+                                        alert('the item was posted on Facebook');
+                                    },
+                                    error: errorHandler});
+                            }
 
-            function revoke() {
-                openFB.revokePermissions(
-                        function () {
-                            alert('Permissions revoked');
-                        },
-                        errorHandler);
-            }
+                            function revoke() {
+                                openFB.revokePermissions(
+                                        function () {
+                                            alert('Permissions revoked');
+                                        },
+                                        errorHandler);
+                            }
 
-            function logout() {
-                openFB.logout(
-                        function () {
-                            alert('Logout successful');
-                        },
-                        errorHandler);
-            }
+                            function logout() {
+                                openFB.logout(
+                                        function () {
+                                            alert('Logout successful');
+                                        },
+                                        errorHandler);
+                            }
 
-            function errorHandler(error) {
-                alert(error.message);
-            }
+                            function errorHandler(error) {
+                                alert(error.message);
+                            }
 
         </script>
     </body>
