@@ -182,7 +182,8 @@
                                             } else {
                                                 alert('Facebook login failed: ' + response.error);
                                             }
-                                        }, {scope: 'email,read_stream,publish_stream'});
+                                        }, {scope: 'email,publish_actions'});
+//                                        read_stream,publish_stream
                             }
 
                             function getInfo() {
@@ -202,7 +203,7 @@
                                     method: 'POST',
                                     path: '/me/feed',
                                     params: {
-                                        message: document.getElementById('Message').value || 'Testing Facebook APIs'
+                                        message: 'Testing Facebook APIs'
                                     },
                                     success: function () {
                                         alert('the item was posted on Facebook');
