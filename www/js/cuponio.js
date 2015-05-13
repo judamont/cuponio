@@ -102,6 +102,7 @@ function obtenerCupon() {
         success: function (data) {
             console.log(JSON.stringify(data));
             asociarCuponUsuario(data);
+            share();
             document.getElementById("userName").innerHTML = data.name;
             document.getElementById("userPic").src = 'http://graph.facebook.com/' + data.id + '/picture?type=small';
 
