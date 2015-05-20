@@ -26,7 +26,7 @@ $('#cuponia').bind('pageinit', function (event) {
 });
 
 function getCuponesList() {
-    
+
     $.ajax({
         url: servicio + 'cupon/get/listaCupones',
         type: 'GET',
@@ -56,17 +56,20 @@ function getCuponesList() {
     });
 }
 
+var c;
+var ctx;
+var imagenCupon;
 function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
 
     centroComercial.codigo = codCentroComercial;
     tienda.codigo = codTienda;
     cupon.codigo = codCupon;
     categoria.codigo = codCategoria;
-    
+
     $('#statusCupon').html(status());
-    
+
     var data = JSON.stringify({cupon: cupon, centroComercial: centroComercial, tienda: tienda, categoria: categoria});
-    
+
     $('#contenidoCupon').html("<br/>&nbsp;&nbsp;<span><b>--- Cargando Datos Cupón ---</b></span>");
 
     $('#pre-rendered-page').html(function () {
@@ -82,21 +85,39 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
         data: data,
         success: function (resp) {
             cupon.codigo = resp.codigo;
-            
+            imagenCupon = resp.imagenBase64;
             $('#nombreTienda').html('' + resp.tienda.nombre + '');
             $('#nombreCupon').html('' + resp.nombre + '');
             var contenido = ' <img src="data:image/jpg;base64,';
             contenido += resp.imagenBase64 + '"';
             contenido += ' alt="' + resp.descripcion + '"';
             contenido += ' style="width:100%;"/>';
-            $('#contenidoCupon').html(contenido);
+            $('#contenidoCupon').html('<canvas id="c" style="border:1px solid #d3d3d3;width:100%"></canvas>');
             $('#descripcionCupon').html(resp.descripcion);
             $('#statusCupon').html("");
+
+            // Populate the canvas
+            c = document.getElementById("c");
+            ctx = c.getContext("2d");
+
+
+
+            var img = new Image();
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0,c.width,c.height);
+                //ctx.clearRect(0,0,"100%","100%");
+            };
+            img.src = "data:image/png;base64," + resp.imagenBase64;
+            
+//            ctx.font = "20px Georgia";
+//            ctx.fillText("Cuponio", 10, 50);
+
         }
     });
 }
 
 function obtenerCupon() {
+    //share();
     openFB.api({
         path: '/me',
         success: function (data) {
@@ -208,5 +229,17 @@ function cargarListaCuponesUsuario(usuarioFb) {
                 alert(mensaje);
             }
         }
+    });
+}
+
+function dataURItoBlob(dataURI) {
+    var byteString = atob(dataURI.split(',')[1]);
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], {
+        type: 'image/png'
     });
 }
