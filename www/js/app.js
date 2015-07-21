@@ -36,7 +36,8 @@ $(document).ready(function () {
                     },
                     error: errorHandler});
             } else {
-                alert('Ingresa para ver tus cupones')
+                //alert('Ingresa para ver tus cupones')
+                login();
             }
         });
     });
