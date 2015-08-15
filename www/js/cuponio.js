@@ -88,11 +88,16 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
             imagenCupon = resp.imagenBase64;
             $('#nombreTienda').html('' + resp.tienda.nombre + '');
             $('#nombreCupon').html('' + resp.nombre + '');
-            var contenido = ' <img src="data:image/jpg;base64,';
+            var contenido = ' <img id="hiddenImage" src="data:image/jpg;base64,';
             contenido += resp.imagenBase64 + '"';
             contenido += ' alt="' + resp.descripcion + '"';
             contenido += ' style="width:100%;"/>';
-            $('#contenidoCupon').html('<canvas id="c" style="border:1px solid #d3d3d3;width:100%"></canvas>');
+            $('#statusCupon').html(contenido);
+            var width = $('#hiddenImage').width();
+            var height = $('#hiddenImage').height();
+//            alert(width);
+//            alert(height);
+            $('#contenidoCupon').html('<canvas id="c" height="' + height + '" width="' + width + '" style="border:1px solid #d3d3d3;width:100%;"></canvas>');
             $('#descripcionCupon').html(resp.descripcion);
             $('#statusCupon').html("");
 
@@ -104,11 +109,10 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
 
             var img = new Image();
             img.onload = function () {
-                ctx.drawImage(img, 0, 0,c.width,c.height);
-                //ctx.clearRect(0,0,"100%","100%");
+                ctx.drawImage(img, 0, 0, c.width, c.height);
             };
             img.src = "data:image/png;base64," + resp.imagenBase64;
-            
+
 //            ctx.font = "20px Georgia";
 //            ctx.fillText("Cuponio", 10, 50);
 
