@@ -61,6 +61,16 @@ var ctx;
 var imagenCupon;
 function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
 
+    openFB.api({
+        path: '/me',
+        success: function (data) {
+            usuario.nombre = data.first_name;
+            usuario.apellido = data.last_name;
+            usuario.correo = data.email;
+        }
+    });
+
+
     centroComercial.codigo = codCentroComercial;
     tienda.codigo = codTienda;
     cupon.codigo = codCupon;
@@ -68,7 +78,7 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
 
     $('#statusCupon').html(status());
 
-    var data = JSON.stringify({cupon: cupon, centroComercial: centroComercial, tienda: tienda, categoria: categoria});
+    var data = JSON.stringify({cupon: cupon, centroComercial: centroComercial, tienda: tienda, categoria: categoria, usuario: usuario});
 
     $('#contenidoCupon').html("<br/>&nbsp;&nbsp;<span><b>--- Cargando Datos Cupón ---</b></span>");
 
@@ -98,7 +108,8 @@ function mostrarCupon(codCentroComercial, codTienda, codCategoria, codCupon) {
 //            alert(width);
 //            alert(height);
             $('#contenidoCupon').html('<canvas id="c" height="' + height + '" width="' + width + '" style="border:1px solid #d3d3d3;width:100%;"></canvas>');
-            $('#descripcionCupon').html(resp.descripcion);
+            var contenido = resp.codVerificacion + ' - ' + resp.descripcion;
+            $('#descripcionCupon').html(contenido);
             $('#statusCupon').html("");
 
             // Populate the canvas
